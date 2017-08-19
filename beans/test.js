@@ -2,14 +2,19 @@
 
 var Description = require('./description');
 
-var STATUSES = ['passed', 'pending', 'skipped', 'failed', 'broken'];
+var STATUSES = ['skipped', 'passed', 'pending', 'failed', 'broken', 'unknown'];
 function Test(name, timestamp) {
     this.name = name;
     this.start = timestamp || Date.now();
+    this.stop = timestamp || Date.now();
     this.steps = [];
     this.attachments = [];
     this.labels = [];
     this.parameters = [];
+    this.status = 'skipped';
+    this.failure = {
+        message: 'Test ignored'
+    };
 }
 
 Test.prototype.setDescription = function (description, type) {
@@ -35,13 +40,19 @@ Test.prototype.addAttachment = function (attachment) {
 Test.prototype.end = function (status, error, timestamp) {
     this.stop = timestamp || Date.now();
     if(STATUSES.indexOf(status) > STATUSES.indexOf(this.status)) {
+        if (status === 'unknown') {
+            status = undefined;
+        }
         this.status = status;
     }
     if (error) {
         this.failure = {
-            message: error.message,
-            'stack-trace': error.stack
+            message: error.message
         };
+
+        if (error.stack) {
+            this.failure['stack-trace'] = error.stack;
+        }
     }
 };
 
