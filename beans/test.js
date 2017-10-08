@@ -54,6 +54,11 @@ Test.prototype.end = function (status, error, timestamp) {
             this.failure['stack-trace'] = error.stack;
         }
     }
+    if (status === 'passed') {
+        this.failure = {
+            message: ' '
+        }
+    }
 };
 
 Test.prototype.toXML = function () {
