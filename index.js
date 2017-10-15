@@ -61,7 +61,7 @@ Allure.prototype.startStep = function(stepName, timestamp) {
 Allure.prototype.endStep = function(status, timestamp) {
     var suite = this.getCurrentSuite();
     if(!(suite.currentStep instanceof Step)) {
-        console.warn('allure-js-commons: Unexpected endStep(). There is no any steps running');
+        // console.warn('allure-js-commons: Unexpected endStep(). There is no any steps running');
         return;
     }
     suite.currentStep.end(status, timestamp);

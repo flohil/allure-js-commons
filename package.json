@@ -1,6 +1,6 @@
 {
   "name": "allure-js-commons-workflo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Common helper for writing plugins to allure-framework for wdio-workflo",
   "main": "index.js",
   "repository": "git@github.com:flohil/allure-js-commons-workflo.git",
